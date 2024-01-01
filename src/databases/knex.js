@@ -2,30 +2,40 @@ import knex from 'knex';
 import knexCfg from '../configs/knex.config.js';
 
 // class Database {
-//     instance;
-    
+
 //     constructor() {
 //         this.connect();
 //     }
 
 //     connect() {
-//         return knex(knexCfg);
-//     }
+//         this.instance = knex(knexCfg);
 
-//     static getInstance() {
-//         if(!Database.instance) {
-//             Database.instance = new Database();
+//         // check connect
+//         this.instance.raw("SELECT 1")
+//         .then(() => {
+//             console.log("PostgreSQL connected");
+//         })
+//         .catch((e) => {
+//             console.error(e);
+//             console.log("PostgreSQL not connected");
+//         });
+
+//         return this.instance;
+//     }
+    
+//     getInstance() {
+//         if(!this.instance) {
+//             this.instance = new Database();
 //         }
-//         return Database.instance;
+        
+//         return this.instance;
 //     }
 // }
 
-// export default Database.getInstance();
+// can't sugguest code
+// export default new Database().getInstance();
 
-// knex only initialized when a new connect
-const pgsql = knex(knexCfg);
-
-pgsql.raw("SELECT 1")
+knex(knexCfg).raw("SELECT 1")
 .then(() => {
     console.log("PostgreSQL connected");
 })
