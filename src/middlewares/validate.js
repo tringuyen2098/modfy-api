@@ -11,8 +11,8 @@ export default (schema) => (req, res, next) => {
         return res.status(400).json({
             error: true,
             code: 400,
-            data: [],
-            msg: fnValidate.errors
+            metadata: [],
+            message: fnValidate.errors
         })
     }
     

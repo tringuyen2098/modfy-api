@@ -8,6 +8,8 @@ import express from 'express';
 import cors from 'cors';
 import limiter from './middlewares/limiter.js'
 import router from "./routes/index.js";
+import stackError from './helpers/stackError.js';
+import utils from './utils/utils.js';
 
 const app = express();
 app.use(cors({
@@ -45,13 +47,20 @@ app.use((req, res, next) => {
 
 // manage errors
 app.use((err, req, res, next) => {
-    const statusCode = err.status || 500;
-    return res.status(statusCode).json({
+    const code = err.status || 500;
+
+    const body = {
         error: true,
-        code: statusCode,
-        stack: err.stack,
+        code: code,
         message: err.message || 'Internal Server Error',
-    });
+        metadata: []
+    }
+
+    if(utils.environment() === 'development') {
+        body.stack = stackError(err.stack);
+    }
+    
+    return res.status(code).json(body);
 });
 
 export default app;

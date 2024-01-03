@@ -45,15 +45,11 @@ class UserService {
 
         const privateKey = crypto.randomBytes(64).toString("hex");
         const publicKey = crypto.randomBytes(64).toString("hex");
-
+        
         return newUser;
         
     } catch (error) {
-        return {
-            error: true,
-            message: error.message,
-            status: error.status
-        };
+        throw error;
     }
   };
 }

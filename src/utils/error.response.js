@@ -39,15 +39,3 @@ export class ForbiddenError extends Errors {
     super(message, statusCode);
   }
 }
-
-export class ErrorResponse { 
-  constructor({ message, status}) {
-    this.error = true;
-    this.status = status;
-    this.message = message;
-  }
-
-  send(res, headers = {}) {
-    return res.status(this.status).json(this);
-  }
-}
